@@ -3,8 +3,14 @@ kind: Ingress
 metadata:
   name: longhorn-ingress
   namespace: longhorn-system
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   ingressClassName: nginx
+  tls:
+  - hosts:
+    - longhorn.devopskaos.com
+    secretName: longhorn-tls
   rules:
   - host: longhorn.devopskaos.com
     http:
@@ -16,4 +22,3 @@ spec:
             name: longhorn-frontend
             port:
               number: 80
-

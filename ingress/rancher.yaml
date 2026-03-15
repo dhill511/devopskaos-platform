@@ -3,8 +3,14 @@ kind: Ingress
 metadata:
   name: rancher-ingress
   namespace: cattle-system
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   ingressClassName: nginx
+  tls:
+  - hosts:
+    - rancher.devopskaos.com
+    secretName: rancher-tls
   rules:
   - host: rancher.devopskaos.com
     http:
@@ -16,4 +22,3 @@ spec:
             name: rancher
             port:
               number: 80
-

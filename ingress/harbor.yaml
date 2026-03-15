@@ -3,8 +3,14 @@ kind: Ingress
 metadata:
   name: harbor-ingress
   namespace: harbor
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   ingressClassName: nginx
+  tls:
+  - hosts:
+    - harbor.devopskaos.com
+    secretName: harbor-tls
   rules:
   - host: harbor.devopskaos.com
     http:
@@ -16,4 +22,3 @@ spec:
             name: harbor-portal
             port:
               number: 80
-
